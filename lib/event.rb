@@ -22,4 +22,23 @@ class Event
       truck.inventory.keys.include?(item)
     end
   end
-end
+
+  def total_inventory
+    total_inv = Hash.new(0)
+    ft_qty = Hash.new(0)
+    accum = []
+    @food_trucks.each do |truck|
+      truck.inventory.each do |item, qty|
+        item_qty = truck.check_stock(item)
+        ft_qty[:quantity] = item_qty
+        ft_qty[:food_trucks] = (accum << truck)
+        total_inv[item] = ft_qty.uniq
+      end
+      end
+      total_inv
+      end
+  end
+
+# total_inventory that reports the quantities of all items sold at the event.
+# items as keys and
+# hash as values - this sub-hash should have two key/value pairs: quantity pointing to total inventory for that item and food_trucks pointing to an array of the food trucks that sell that item.
