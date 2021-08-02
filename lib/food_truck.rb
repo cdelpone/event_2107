@@ -8,21 +8,25 @@ class FoodTruck
   end
 
   def check_stock(item)
-    result = 0
+    total_inv_qty = 0
     @inventory.each do |supply|
       supply_key = supply[0]
       supply_qty = supply[1]
-      # require "pry"; binding.pry
       if supply_key == item
-      result += supply_qty
-      else result
+      total_inv_qty += supply_qty
+    else total_inv_qty
       end
     end
-    result
+    total_inv_qty
   end
 
   def stock(item, qty)
     @inventory[item] += qty
+  end
 
+  def potential_revenue
+    @inventory.sum do |item, qty|
+      item.price * qty
+    end
   end
 end
